@@ -6,7 +6,7 @@ class AuthController {
 
       const requiredFields = ['email', 'password', 'age', 'gender', 
                             'latitude', 'longitude', 'medication', 
-                            'emergency', 'habits', 'important_notes'];
+                            'emergency', 'habits', 'important_notes','name'];
       
       for (const field of requiredFields) {
         if (!req.body[field]) {

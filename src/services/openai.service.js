@@ -6,14 +6,15 @@ const openai = new OpenAI({
 
 class OpenAIService {
   static async parseUserData(data) {
-
+    console.log(`nme : ${data.name}`)
     const textToAnalyze = {
       age: data.age,
       gender: data.gender,
       medication: data.medication,
       emergency: data.emergency,
       habits: data.habits,
-      important_notes: data.important_notes
+      important_notes: data.important_notes,
+      name: data.name
     };
 
     const prompt = `
@@ -27,6 +28,7 @@ class OpenAIService {
       Emergency Contact Text: "${textToAnalyze.emergency}"
       Habits Text: "${textToAnalyze.habits}"
       Important Notes: "${textToAnalyze.important_notes}"
+      Name: "${textToAnalyze.name}"
 
       Required format:
       {
@@ -43,7 +45,8 @@ class OpenAIService {
           "mobileNo": <contact number, remove any spaces or special characters>
         },
         "habits": [<array of individual habits as strings>],
-        "important_notes": <clean text string>
+        "important_notes": <clean text string>,
+        "Name":<name of the person>
       }
 
       Rules:

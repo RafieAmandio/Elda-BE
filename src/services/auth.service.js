@@ -14,7 +14,8 @@ class AuthService {
 
 
       const parsedData = await OpenAIService.parseUserData(userData);
-
+      console.log("prse")
+      console.log(parsedData)
 
       const supabaseData = {
         email,
@@ -26,14 +27,14 @@ class AuthService {
         medication: parsedData.medication,
         emergency: parsedData.emergency,
         habits: parsedData.habits,
-        important_notes: parsedData.important_notes
+        important_notes: parsedData.important_notes,
+        name: parsedData.Name
       };
 
-      // Insert into Supabase
       const { data, error } = await supabase
         .from('users')
         .insert([supabaseData])
-        .select('email, age, gender, latitude, longitude, medication, emergency, habits, important_notes')
+        .select('email, age, gender, latitude, longitude, medication, emergency, habits, important_notes, name')
         .single();
 
       if (error) throw error;
