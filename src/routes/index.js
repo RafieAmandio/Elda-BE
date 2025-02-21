@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const authRoutes = require('./auth.routes');
 
-// Import route modules
-const userRoutes = require('./user.routes');
-
-// Mount routes
-router.use('/users', userRoutes);
+router.use('/auth', authRoutes);
 
 module.exports = router;
