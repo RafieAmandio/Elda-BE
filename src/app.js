@@ -8,9 +8,15 @@ const routes = require('./routes');
 
 const app = express();
 
+const corsOptions = {
+    origin: '*',  
+    methods: 'GET,POST,PUT,DELETE',  
+    allowedHeaders: 'Content-Type,Authorization',  
+  };
+
 // Middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
