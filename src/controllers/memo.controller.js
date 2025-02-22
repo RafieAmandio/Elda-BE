@@ -9,7 +9,7 @@ class MemoController {
       if (!userid || !text) {
         return res.status(400).json({
           message: 'User ID and text are required'
-        });
+        });s
       }
 
       const memo = await MemoService.createMemo({

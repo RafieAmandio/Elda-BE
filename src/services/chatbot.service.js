@@ -122,6 +122,7 @@ class ChatbotService {
     
     return `
       User Profile:
+      - Name: ${user.name}
       - Age: ${user.age}
       - Gender: ${user.gender}
       - Location: ${user.location}
