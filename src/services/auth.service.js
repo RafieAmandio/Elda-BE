@@ -51,7 +51,7 @@ class AuthService {
         .select('*')
         .eq('email', email)
         .single();
-
+      console.log(user)
       if (error) throw error;
       if (!user) throw new Error('User not found');
 
