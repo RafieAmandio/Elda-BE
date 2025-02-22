@@ -1,4 +1,4 @@
-const { MemoController } = require('../services/memo.service');
+const { MemoService } = require('../services/memo.service');
 
 class MemoController {
   static async createMemo(req, res, next) {

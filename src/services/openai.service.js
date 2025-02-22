@@ -6,7 +6,7 @@ const openai = new OpenAI({
 
 class OpenAIService {
   static async parseUserData(data) {
-    console.log(`nme : ${data.name}`)
+
     const textToAnalyze = {
       age: data.age,
       gender: data.gender,
@@ -51,11 +51,12 @@ class OpenAIService {
 
       Rules:
       1. Age must be a number
-      2. Gender must be either "MALE" or "FEMALE"
+      2. Gender must be either "MALE" or "FEMALE" in uppercase
       3. Medication must be an array of objects with medicineName and schedule, the schedule is a time format like 19.00
       4. Emergency contact should extract name and clean phone number
       5. Habits should be split into individual activities
       6. Return only the JSON object, no additional text
+      7. If the user doesnt state something just give the data empty string
 
       Parse the above information and return a properly formatted JSON object following these rules.`;
 
