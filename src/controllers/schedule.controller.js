@@ -1,24 +1,22 @@
 const { ScheduleService } = require('../services/schedule.service');
+const { ReminderService} = require('../services/reminder.service');
 
 class ScheduleController {
   static async createSchedule(req, res, next) {
     try {
-      const { userid, time, repeating_day, starting_date } = req.body;
+      const { userid, title, time, repeating_day, starting_date } = req.body;
 
-
-      if (!userid || !time || !repeating_day || !starting_date) {
+      if (!userid || !title || !time || !repeating_day || !starting_date) {
         return res.status(400).json({
-          message: 'User ID, time, repeating days, and starting date are required'
+          message: 'User ID, title, time, repeating days, and starting date are required'
         });
       }
 
- 
       if (!Array.isArray(repeating_day)) {
         return res.status(400).json({
           message: 'Repeating days must be an array'
         });
       }
-
 
       if (!isValidDate(starting_date)) {
         return res.status(400).json({
@@ -28,6 +26,7 @@ class ScheduleController {
 
       const schedule = await ScheduleService.createSchedule({
         userid,
+        title,
         time,
         repeating_day,
         starting_date
@@ -53,7 +52,8 @@ class ScheduleController {
       }
 
       const schedules = await ScheduleService.getSchedulesByUserId(userid);
-      res.json(schedules);
+      const reminders = await ReminderService.getRemindersByUserId(userid);
+      res.json({schedules, reminders});
     } catch (error) {
       next(error);
     }
@@ -75,15 +75,13 @@ class ScheduleController {
 
   static async updateSchedule(req, res, next) {
     try {
-      const { time, repeating_day, starting_date } = req.body;
-
+      const { title, time, repeating_day, starting_date } = req.body;
 
       if (repeating_day && !Array.isArray(repeating_day)) {
         return res.status(400).json({
           message: 'Repeating days must be an array'
         });
       }
-
 
       if (starting_date && !isValidDate(starting_date)) {
         return res.status(400).json({
@@ -92,6 +90,7 @@ class ScheduleController {
       }
 
       const schedule = await ScheduleService.updateSchedule(req.params.id, {
+        title,
         time,
         repeating_day,
         starting_date
@@ -124,7 +123,6 @@ class ScheduleController {
     }
   }
 }
-
 
 function isValidDate(dateString) {
   const date = new Date(dateString);

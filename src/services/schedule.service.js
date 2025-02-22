@@ -11,6 +11,7 @@ class ScheduleService {
         .from('schedules') 
         .insert([{
           userid: scheduleData.userid,
+          title: scheduleData.title,
           time: formattedTime,
           repeating_day: scheduleData.repeating_day,
           starting_date: scheduleData.starting_date
@@ -65,6 +66,7 @@ class ScheduleService {
       
       const updatePayload = {
         ...(formattedTime && { time: formattedTime }),
+        ...(updateData.title && { title: updateData.title }),
         ...(updateData.repeating_day && { repeating_day: updateData.repeating_day }),
         ...(updateData.starting_date && { starting_date: updateData.starting_date })
       };
